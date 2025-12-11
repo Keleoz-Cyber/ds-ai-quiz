@@ -28,14 +28,14 @@ DS_AI_Quiz/
 ├── main.cpp           # 主程序文件
 ├── CMakeLists.txt     # CMake构建配置
 ├── data/              # 数据目录
-│   ├── questions.txt  # 题库文件（需自行创建）
-│   └── records.txt    # 做题记录文件（自动生成）
+│   ├── questions.csv  # 题库文件（需自行创建）
+│   └── records.csv    # 做题记录文件（自动生成）
 └── README.md          # 项目文档
 ```
 
 ## 数据格式
 
-### 题库文件格式 (data/questions.txt)
+### 题库文件格式 (data/questions.csv)
 
 每行一道题，字段用竖线 `|` 分隔：
 
@@ -49,7 +49,7 @@ DS_AI_Quiz/
 2|二叉树的先序遍历顺序是？|根左右|左根右|左右根|根右左|0|树|2
 ```
 
-### 做题记录格式 (data/records.txt)
+### 做题记录格式 (data/records.csv)
 
 自动生成，每行一条记录：
 
@@ -82,14 +82,14 @@ cmake --build .
 ### 运行程序
 
 ```bash
-# 确保data目录存在且包含questions.txt
+# 确保data目录存在且包含questions.csv
 ./DS_AI_Quiz
 ```
 
 ## 使用说明
 
 1. **首次使用**：
-   - 在 `data/` 目录下创建 `questions.txt` 文件
+   - 在 `data/` 目录下创建 `questions.csv` 文件
    - 按照格式添加题目数据
 
 2. **主菜单选项**：
