@@ -1,10 +1,12 @@
 #include "Record.h"
 #include "Stats.h"
+#include "Utils.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <chrono>
 #include <ctime>
+#include <filesystem>
 
 // 全局做题记录定义
 std::vector<Record> g_records;
@@ -16,10 +18,11 @@ std::string g_currentUserId;
 
 // 获取当前用户的记录文件路径
 std::string getRecordFilePath() {
+    std::filesystem::path dataDir = getDataDir();
     if (g_currentUserId.empty()) {
-        return "data/records.csv"; // 默认路径
+        return (dataDir / "records.csv").string();
     }
-    return "data/records_" + g_currentUserId + ".csv";
+    return (dataDir / ("records_" + g_currentUserId + ".csv")).string();
 }
 
 // 用户登录：设置当前用户 ID

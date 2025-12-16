@@ -1,0 +1,75 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'  # 匹配 v1.0.0, v2.1.3 等版本标签
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup CMake
+      uses: lukka/get-cmake@latest
+
+    - name: Configure CMake
+      run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+
+    - name: Build
+      run: cmake --build build --config Release
+
+    - name: Prepare Release Package
+      shell: pwsh
+      run: |
+        # 创建发行版目录结构
+        New-Item -ItemType Directory -Force -Path "release/DS_AI_Quiz"
+        New-Item -ItemType Directory -Force -Path "release/DS_AI_Quiz/data"
+
+        # 复制可执行文件
+        Copy-Item "build/Release/DS_AI_Quiz.exe" -Destination "release/DS_AI_Quiz/"
+
+        # 复制数据文件
+        Copy-Item "data/questions.csv" -Destination "release/DS_AI_Quiz/data/"
+        Copy-Item "data/knowledge_graph.txt" -Destination "release/DS_AI_Quiz/data/"
+
+        # 复制 README 和 LICENSE（可选）
+        if (Test-Path "README.md") {
+          Copy-Item "README.md" -Destination "release/DS_AI_Quiz/"
+        }
+        if (Test-Path "LICENSE") {
+          Copy-Item "LICENSE" -Destination "release/DS_AI_Quiz/"
+        }
+
+    - name: Create ZIP archive
+      shell: pwsh
+      run: |
+        # 获取版本号（去掉 v 前缀）
+        $version = "${{ github.ref_name }}".TrimStart('v')
+        $zipName = "DS_AI_Quiz-Windows-x64-v$version.zip"
+
+        # 创建 ZIP 包
+        Compress-Archive -Path "release/DS_AI_Quiz" -DestinationPath $zipName
+
+        # 输出文件名供后续步骤使用
+        echo "ZIP_NAME=$zipName" >> $env:GITHUB_ENV
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: DS_AI_Quiz-Windows-x64
+        path: ${{ env.ZIP_NAME }}
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: ${{ env.ZIP_NAME }}
+        draft: false
+        prerelease: false
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

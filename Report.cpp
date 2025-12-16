@@ -197,8 +197,9 @@ void exportLearningReport() {
     report << "*本报告由数据结构智能刷题系统自动生成*\n";
 
     // 创建 reports 目录（如果不存在）
+    std::filesystem::path reportsDir = getReportsDir();
     try {
-        std::filesystem::create_directories("reports");
+        std::filesystem::create_directories(reportsDir);
     } catch (const std::exception& e) {
         std::cout << "创建 reports 目录失败：" << e.what() << "\n";
         pauseForUser();
@@ -206,7 +207,8 @@ void exportLearningReport() {
     }
 
     // 生成文件名
-    std::string filename = "reports/report_" + g_currentUserId + "_" + getTimeStringForFilename() + ".md";
+    std::filesystem::path filepath = reportsDir / ("report_" + g_currentUserId + "_" + getTimeStringForFilename() + ".md");
+    std::string filename = filepath.string();
 
     // 写入文件
     std::ofstream fout(filename);
