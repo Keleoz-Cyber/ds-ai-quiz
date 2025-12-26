@@ -79,7 +79,7 @@
 
 1. **获取源码**
    ```bash
-   git clone https://github.com/Keleoz-Cyber/ds-ai-quiz
+   git clone https://github.com/Keleoz-Cyber/ds-ai-quiz.git
    cd DS_AI_Quiz
    ```
 
