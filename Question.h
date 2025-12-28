@@ -10,7 +10,7 @@
  * 【关键数据结构】
  * - Question 结构体：单道题目的完整信息
  * - std::vector<Question> g_questions：所有题目的顺序存储
- * - std::unordered_map<int, const Question*> g_questionById：题号 -> 题目指针的哈希索引
+ * - std::unordered_map<int, size_t> g_questionById：题号 -> 题目索引的哈希映射
  *
  * 【输入文件格式】
  * - 文件名：data/questions.csv
@@ -79,7 +79,7 @@ extern std::unordered_map<int, size_t> g_questionById;
  * - 读取 questions.csv 文件（UTF-8 编码）
  * - 逐行解析，每行一道题（逗号分隔）
  * - 填充 g_questions（顺序容器）
- * - 建立 g_questionById 索引（题号 -> 指针）
+ * - 建立 g_questionById 索引（题号 -> 数组下标）
  *
  * 【解析策略】
  * - 空行：跳过

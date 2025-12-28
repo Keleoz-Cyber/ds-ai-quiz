@@ -6,7 +6,7 @@
  * 1. 使用 std::ifstream 读取 CSV 文件（UTF-8 编码）
  * 2. 逐行解析：std::getline(line) + std::stringstream 按逗号分隔字段
  * 3. 容错处理：空行跳过、列数不足跳过、数值解析失败跳过（捕获 std::stoi 异常）
- * 4. 索引构建：遍历 g_questions，为每个题目建立 id -> Question* 的哈希映射
+ * 4. 索引构建：遍历 g_questions，为每个题目建立 id -> size_t 的哈希映射
  * 5. 复杂度：O(N)，N 为题目数量（单次遍历 + O(1) 哈希插入）
  *
  * 【鲁棒性】
@@ -39,7 +39,7 @@ std::unordered_map<int, size_t> g_questionById;
  *    - options：fields[2~5] 构成 4 个选项
  * 6. 异常处理：try-catch 捕获 std::stoi 失败，输出警告并跳过该行
  * 7. 加入容器：push_back 到 g_questions
- * 8. 建立索引：遍历 g_questions，为每个题目的 id 建立指针映射
+ * 8. 建立索引：遍历 g_questions，为每个题目的 id 建立索引映射
  *
  * 【示例输入行】
  * 1,栈的基本操作是什么？,入栈,出栈,获取栈顶元素,以上都是,3,栈与队列,2
