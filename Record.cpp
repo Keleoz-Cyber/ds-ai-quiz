@@ -480,7 +480,7 @@ void doQuestion(const Question& q) {
     while (!inputValid) {
         std::cout << "请输入你的答案编号：";
         
-        // 【关键修复】检查 getline 是否成功，防止 EOF/错误状态导致无限循环
+        // 检查 getline 是否成功，防止 EOF/错误状态导致无限循环
         if (!std::getline(std::cin, line)) {
             // 输入流已关闭（EOF）或出错
             if (std::cin.eof()) {
