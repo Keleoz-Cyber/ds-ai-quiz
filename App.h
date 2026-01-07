@@ -11,7 +11,7 @@
  * - 按回车返回菜单时才清屏，交互更自然
  * - 避免功能函数内部分散管理清屏逻辑
  *
- * @author DS_AI_Quiz Team
+ * @author Keleoz
  * @date 2025
  */
 

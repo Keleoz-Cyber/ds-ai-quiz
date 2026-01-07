@@ -4,7 +4,7 @@
  *
  * 实现清屏、暂停、路径定位等跨平台实用功能。
  *
- * @author DS_AI_Quiz Team
+ * @author Keleoz
  * @date 2025
  */
 

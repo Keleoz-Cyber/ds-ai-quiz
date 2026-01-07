@@ -6,7 +6,7 @@
  * 【清屏设计】清屏统一放在 runMenuLoop 循环开头，不在各功能函数结束时清屏，
  * 确保用户可以完整查看功能输出后再按回车返回菜单。
  *
- * @author DS_AI_Quiz Team
+ * @author Keleoz
  * @date 2025
  */
 
